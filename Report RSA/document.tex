@@ -1,0 +1,135 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\title{RSA Encryption/Decryption Project}
+\author{Malek Khadhraoui}
+\date{\today}
+
+\begin{document}
+	
+	% Title Page
+	\maketitle
+	\thispagestyle{empty}
+	\newpage
+	
+	% Table of Contents
+	\tableofcontents
+	\newpage
+	
+	\chapter{Introduction}
+	Cryptography is the science of securing communication against adversaries. It ensures confidentiality, integrity, and authenticity of information. Among the most influential algorithms is RSA (Rivest–Shamir–Adleman), a public-key cryptosystem based on the difficulty of factoring large prime numbers. 
+	
+	RSA matters because it enables secure communication without the need to share a secret key in advance. Real-world applications include:
+	\begin{itemize}
+		\item Secure messaging between users.
+		\item Digital signatures for verifying authenticity.
+		\item SSL/TLS protocols for secure web browsing.
+	\end{itemize}
+	
+	\chapter{Theory Section}
+	RSA relies on number theory, specifically prime numbers and modular arithmetic.
+	
+	\section{Mathematical Foundations}
+	\begin{enumerate}
+		\item Choose two large prime numbers $p$ and $q$.
+		\item Compute $n = p \times q$.
+		\item Compute Euler's totient $\varphi(n) = (p-1)(q-1)$.
+		\item Choose $e$ such that $1 < e < \varphi(n)$ and $\gcd(e, \varphi(n)) = 1$.
+		\item Compute $d$ such that $d \cdot e \equiv 1 \pmod{\varphi(n)}$.
+	\end{enumerate}
+	
+	\section{Numerical Example}
+	Let $p = 61$, $q = 53$:
+	
+	
+	\[
+	n = 61 \times 53 = 3233
+	\]
+	
+	
+	
+	
+	\[
+	\varphi(n) = (61-1)(53-1) = 3120
+	\]
+	
+	
+	Choose $e = 17$ (coprime with 3120). Compute $d$:
+	
+	
+	\[
+	d = 2753 \quad \text{since } 17 \times 2753 \equiv 1 \pmod{3120}
+	\]
+	
+	
+	Public key: $(e, n) = (17, 3233)$ \\
+	Private key: $(d, n) = (2753, 3233)$
+	
+	Encryption: $C = M^e \mod n$ \\
+	Decryption: $M = C^d \mod n$
+	
+	\chapter{Implementation}
+	The project is implemented in Python for clarity and ease of demonstration.
+	
+	\section{Project Structure}
+	\begin{verbatim}
+		rsa_project/
+		│── main.py              # Front page GUI (Tkinter)
+		│── rsa_core.py          # Core RSA logic (math + functions)
+		│── utils.py             # Helper functions (prime generation, gcd, modular inverse)
+		│── tests.py             # Unit tests for your RSA functions
+		│── README.md            # Documentation for your project
+	\end{verbatim}
+	
+	\section{Modules Used}
+	\begin{itemize}
+		\item \texttt{random} and \texttt{math} for basic operations.
+		\item \texttt{sympy} for prime generation (optional).
+		\item \texttt{tkinter} for GUI.
+	\end{itemize}
+	
+	\section{Core Functions}
+	\begin{lstlisting}[language=Python]
+		def generate_keys():
+		# Generates public and private keys
+		...
+		
+		def encrypt(message, public_key):
+		# Encrypts a plaintext message
+		...
+		
+		def decrypt(cipher, private_key):
+		# Decrypts ciphertext back to plaintext
+		...
+	\end{lstlisting}
+	
+	\chapter{Demo}
+	\section{Input}
+	A short text message: \texttt{"HELLO RSA"}
+	
+	\section{Output}
+	Encrypted ciphertext: \texttt{1234 5678 9012 ...} \\
+	Decrypted plaintext: \texttt{"HELLO RSA"}
+	
+	Screenshots or console outputs can be added here using:
+	\begin{verbatim}
+		\includegraphics[width=0.8\textwidth]{screenshot.png}
+	\end{verbatim}
+	
+	\chapter{Extra Features (Bonus Points)}
+	To make the project stand out:
+	\begin{itemize}
+		\item \textbf{Digital Signature}: Sender encrypts a hash of the message with their private key. Receiver verifies with the public key.
+		\item \textbf{GUI}: Implemented with Tkinter for user-friendly interaction.
+		\item \textbf{File Encryption/Decryption}: Extend functionality to encrypt and decrypt files, not just text.
+	\end{itemize}
+	
+	\chapter{Conclusion}
+	This project demonstrates a full understanding of RSA, from theory to implementation. By modularizing the code, handling errors, and adding a GUI, the project achieves clarity, robustness, and professional presentation. Extra features such as digital signatures and file encryption highlight the extensibility of the design.
+	
+\end{document}
